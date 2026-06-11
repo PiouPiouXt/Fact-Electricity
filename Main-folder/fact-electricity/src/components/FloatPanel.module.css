@@ -67,8 +67,15 @@
 }
 
 @keyframes panelOpen {
-  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
-  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* ---------------------------
@@ -81,9 +88,22 @@
   margin-bottom: 14px;
 }
 
-.icon  { font-size: 1.2rem; }
-.title { font-family: var(--mono); font-size: 0.78rem; font-weight: 700; color: var(--accent); letter-spacing: 0.05em; }
-.watts { font-size: 0.62rem; color: var(--muted); }
+.icon {
+  font-size: 1.2rem;
+}
+
+.title {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+.watts {
+  font-size: 0.62rem;
+  color: var(--muted);
+}
 
 /* Close button (scoped) */
 .panelContent .closeBtn {
@@ -97,8 +117,12 @@
   transition: color 150ms;
   cursor: pointer;
 }
+
 .panelContent .closeBtn:hover,
-.panelContent .closeBtn:focus { color: var(--accent); outline: none; }
+.panelContent .closeBtn:focus {
+  color: var(--accent);
+  outline: none;
+}
 
 /* ---------------------------
    Time display & steppers
@@ -136,20 +160,66 @@
   transition: background 150ms, border-color 150ms;
   cursor: pointer;
 }
+
 .panelContent .sb:hover,
-.panelContent .sb:focus { background: #1a1600; border-color: var(--accent-dim); outline: none; }
+.panelContent .sb:focus {
+  background: #1a1600;
+  border-color: var(--accent-dim);
+  outline: none;
+}
 
-.segVal    { text-align: center; }
-.timeNum   { font-family: var(--mono); font-size: 2rem; font-weight: 700; line-height: 1; min-width: 2.2ch; }
-.zero      { color: var(--muted2); }
-.lit       { color: var(--accent); }
-.timeUnit  { font-size: 0.44rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+.segVal {
+  text-align: center;
+}
 
-.sep    { font-family: var(--mono); font-size: 1.5rem; font-weight: 700; color: var(--muted2); padding-bottom: 4px; transition: color 200ms; }
-.sepLit { color: var(--accent-dim); }
+.timeNum {
+  font-family: var(--mono);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 2.2ch;
+}
 
-.fmtTime { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-left: auto; }
-.fmtUnit { font-size: 0.6rem; color: var(--muted2); }
+.zero {
+  color: var(--muted2);
+}
+
+.lit {
+  color: var(--accent);
+}
+
+.timeUnit {
+  font-size: 0.44rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.sep {
+  font-family: var(--mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--muted2);
+  padding-bottom: 4px;
+  transition: color 200ms;
+}
+
+.sepLit {
+  color: var(--accent-dim);
+}
+
+.fmtTime {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-left: auto;
+}
+
+.fmtUnit {
+  font-size: 0.6rem;
+  color: var(--muted2);
+}
 
 /* ---------------------------
    Slider
@@ -181,7 +251,7 @@
   border-radius: 50%;
   border: 2.5px solid #050508;
   pointer-events: none;
-  box-shadow: 0 0 10px rgba(245,197,24,0.5);
+  box-shadow: 0 0 10px rgba(245, 197, 24, 0.5);
 }
 
 /* Notches */
@@ -190,12 +260,39 @@
   justify-content: space-between;
   margin-bottom: 12px;
 }
-.notch    { display: flex; flex-direction: column; align-items: center; }
-.notchBar { width: 1px; height: 4px; background: var(--panel-border); border-radius: 1px; }
-.major    { height: 7px; background: #38385a; }
-.notchOn  { background: var(--accent-dim); }
-.notchLbl    { font-size: 0.36rem; color: #333; font-family: var(--mono); margin-top: 1px; }
-.notchLblOn  { color: #6a6000; }
+
+.notch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notchBar {
+  width: 1px;
+  height: 4px;
+  background: var(--panel-border);
+  border-radius: 1px;
+}
+
+.major {
+  height: 7px;
+  background: #38385a;
+}
+
+.notchOn {
+  background: var(--accent-dim);
+}
+
+.notchLbl {
+  font-size: 0.36rem;
+  color: #333;
+  font-family: var(--mono);
+  margin-top: 1px;
+}
+
+.notchLblOn {
+  color: #6a6000;
+}
 
 /* ---------------------------
    Quick chips
@@ -226,8 +323,17 @@
   transition: all 150ms;
   cursor: pointer;
 }
-.chip:hover { border-color: var(--accent); color: var(--accent); }
-.chipOn { border-color: var(--accent); color: var(--accent); background: rgba(245,197,24,0.06); }
+
+.chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.chipOn {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(245, 197, 24, 0.06);
+}
 
 /* ---------------------------
    Free inputs (H / MM)
@@ -252,7 +358,8 @@
 
 /* Wider numeric inputs for easier typing */
 .panelContent .freeIn {
-  width: 72px; /* increased width */
+  width: 72px;
+  /* increased width */
   background: #000;
   border: 1px solid var(--panel-border);
   color: var(--accent);
@@ -265,13 +372,30 @@
   outline: none;
   transition: border-color 150ms, box-shadow 150ms;
 }
-.panelContent .freeIn:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(245,197,24,0.06); }
+
+.panelContent .freeIn:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.06);
+}
+
 .panelContent .freeIn::-webkit-outer-spin-button,
-.panelContent .freeIn::-webkit-inner-spin-button { -webkit-appearance: none; }
+.panelContent .freeIn::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 
 /* small label pieces */
-.freeSep  { font-family: var(--mono); font-weight: 700; color: var(--accent-dim); }
-.freeUnit { font-size: 0.44rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); }
+.freeSep {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--accent-dim);
+}
+
+.freeUnit {
+  font-size: 0.44rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted2);
+}
 
 /* ---------------------------
    Actions (Cancel / Reset)
@@ -296,7 +420,11 @@
   transition: background 150ms, border-color 150ms;
   cursor: pointer;
 }
-.panelContent .btnDanger:hover { background: rgba(224, 85, 85, 0.06); border-color: var(--danger); }
+
+.panelContent .btnDanger:hover {
+  background: rgba(224, 85, 85, 0.06);
+  border-color: var(--danger);
+}
 
 .panelContent .btnGhost {
   font-size: 0.58rem;
@@ -310,9 +438,56 @@
   transition: border-color 150ms;
   cursor: pointer;
 }
-.panelContent .btnGhost:hover { border-color: #555; color: var(--text); }
+
+.panelContent .btnGhost:hover {
+  border-color: #555;
+  color: var(--text);
+}
 
 /* ---------------------------
    Misc helpers
    --------------------------- */
-.icon, .title, .watts, .timeUnit, .fmtUnit { user-select: none; }
+.icon,
+.title,
+.watts,
+.timeUnit,
+.fmtUnit {
+  user-select: none;
+}
+
+/* free input */
+/* Free input steppers layout and small buttons */
+.freeField {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* space between stepper and input */
+}
+
+.freeStepper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-right: 4px;
+}
+
+.freeStepBtn {
+  width: 28px;
+  height: 20px;
+  background: #0f0f18;
+  border: 1px solid var(--panel-border);
+  color: var(--accent);
+  font-size: 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+.freeStepBtn:hover,
+.freeStepBtn:focus {
+  background: #1a1600;
+  border-color: var(--accent-dim);
+  outline: none;
+}

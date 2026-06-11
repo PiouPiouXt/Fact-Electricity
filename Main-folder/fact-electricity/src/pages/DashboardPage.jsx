@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Chart, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
+import { useChart } from '../hooks/useChart.js';
 import { MONTHS, numfmt } from '../utils/electricity.js';
 import { exportPDF } from '../utils/exportPDF.js';
 import styles from './DashboardPage.module.css';
 
-Chart.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const NOW = new Date();
 
@@ -21,71 +20,69 @@ export default function DashboardPage({ monthlyData, addMonthEntry, removeMonthE
   const peak = monthlyData.length > 0 ? Math.max(...monthlyData.map((d) => d.cost)) : 0;
   const totKwh = monthlyData.reduce((s, d) => s + d.kwh, 0);
 
-  useEffect(() => {
-    const canvas = chartRef.current;
-    if (!canvas || monthlyData.length === 0) return;
 
-    if (chartInst.current) { chartInst.current.destroy(); chartInst.current = null; }
-
-    chartInst.current = new Chart(canvas, {
-      type: 'bar',
-      data: {
-        labels: monthlyData.map((d) => `${MONTHS[d.month]} ${d.year}`),
-        datasets: [
-          {
-            label: 'Coût (Ar)',
-            data: monthlyData.map((d) => d.cost),
-            backgroundColor: 'rgba(245,197,24,0.75)',
-            borderColor: '#f5c518',
-            borderWidth: 1,
-            borderRadius: 4,
-            yAxisID: 'y',
-          },
-          {
-            label: 'kWh',
-            data: monthlyData.map((d) => d.kwh),
-            backgroundColor: 'rgba(59,130,246,0.5)',
-            borderColor: '#3b82f6',
-            borderWidth: 1,
-            borderRadius: 4,
-            yAxisID: 'y2',
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            backgroundColor: '#0f0f1a',
-            borderColor: '#252535',
-            borderWidth: 1,
-            titleColor: '#f0f0fa',
-            bodyColor: '#5a5a7a',
-          },
+    // build chart config from monthlyData
+  const chartConfig = {
+    type: 'bar',
+    data: {
+      labels: monthlyData.map((d) => `${MONTHS[d.month]} ${d.year}`),
+      datasets: [
+        {
+          label: 'Coût (Ar)',
+          data: monthlyData.map((d) => d.cost),
+          backgroundColor: 'rgba(245,197,24,0.75)',
+          borderColor: '#f5c518',
+          borderWidth: 1,
+          borderRadius: 4,
+          yAxisID: 'y',
         },
-        scales: {
-          y: {
-            position: 'left',
-            grid: { color: '#181828' },
-            ticks: { color: '#5a5a7a', font: { family: 'JetBrains Mono', size: 10 }, callback: (v) => numfmt(v) + ' Ar' },
-          },
-          y2: {
-            position: 'right',
-            grid: { drawOnChartArea: false },
-            ticks: { color: '#3b82f6', font: { family: 'JetBrains Mono', size: 10 }, callback: (v) => v + ' kWh' },
-          },
-          x: {
-            grid: { color: '#0f0f1a' },
-            ticks: { color: '#444', font: { family: 'JetBrains Mono', size: 9 } },
-          },
+        {
+          label: 'kWh',
+          data: monthlyData.map((d) => d.kwh),
+          backgroundColor: 'rgba(59,130,246,0.5)',
+          borderColor: '#3b82f6',
+          borderWidth: 1,
+          borderRadius: 4,
+          yAxisID: 'y2',
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#0f0f1a',
+          borderColor: '#252535',
+          borderWidth: 1,
+          titleColor: '#f0f0fa',
+          bodyColor: '#5a5a7a',
         },
       },
-    });
+      scales: {
+        y: {
+          position: 'left',
+          grid: { color: '#181828' },
+          ticks: { color: '#5a5a7a', font: { family: 'JetBrains Mono', size: 10 }, callback: (v) => numfmt(v) + ' Ar' },
+        },
+        y2: {
+          position: 'right',
+          grid: { drawOnChartArea: false },
+          ticks: { color: '#3b82f6', font: { family: 'JetBrains Mono', size: 10 }, callback: (v) => v + ' kWh' },
+        },
+        x: {
+          grid: { color: '#0f0f1a' },
+          ticks: { color: '#444', font: { family: 'JetBrains Mono', size: 9 } },
+        },
+      },
+    },
+  };
 
-    return () => { if (chartInst.current) { chartInst.current.destroy(); chartInst.current = null; } };
-  }, [monthlyData]);
+  // Validate data to avoid creating charts with invalid values
+  const hasInvalid = monthlyData.some(d => !isFinite(d.cost) || !isFinite(d.kwh));
+  // only attach chart when valid and not empty
+  useChart(chartRef, chartConfig, monthlyData.length > 0 && !hasInvalid ? [monthlyData] : []);
 
   const handleAdd = () => {
     const c = parseFloat(cost.replace(/\s/g, '').replace(',', '.'));
@@ -138,7 +135,8 @@ export default function DashboardPage({ monthlyData, addMonthEntry, removeMonthE
           </span>
         </div>
         {monthlyData.length > 0
-          ? <div className={styles.chartWrap}><canvas ref={chartRef} role="img" aria-label="Graphique de consommation mensuelle" /></div>
+          // ? <div className={styles.chartWrap}><canvas ref={chartRef} role="img" aria-label="Graphique de consommation mensuelle" /></div>
+          ? <div className={styles.chartWrap} style={{ minHeight: 220 }}><canvas ref={chartRef} role="img" aria-label="Graphique de consommation mensuelle" /></div>
           : <div className={styles.emptyChart}>Aucune donnée. Ajoutez votre première facture ci-dessous.</div>
         }
       </div>

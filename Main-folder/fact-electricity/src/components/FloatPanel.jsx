@@ -16,11 +16,11 @@ export default function FloatPanel({
   center = false,
   withOverlay = true
 }) {
-  const H   = Math.floor(value);
-  const M   = Math.min(59, Math.round((value % 1) * 60));
+  const H = Math.floor(value);
+  const M = Math.min(59, Math.round((value % 1) * 60));
   const pct = (value / 24) * 100;
   const isDragging = useRef(false);
-  const trackRef   = useRef(null);
+  const trackRef = useRef(null);
 
   const clamp = (v) => Math.max(0, Math.min(24, parseFloat(v.toFixed(6))));
 
@@ -44,7 +44,7 @@ export default function FloatPanel({
     isDragging.current = true;
     handleSlider(e.clientX);
     const onMove = (ev) => { if (isDragging.current) handleSlider(ev.clientX); };
-    const onUp   = ()   => { isDragging.current = false; window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp); };
+    const onUp = () => { isDragging.current = false; window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp); };
     window.addEventListener('mousemove', onMove);
     window.addEventListener('mouseup', onUp);
   };
@@ -52,14 +52,14 @@ export default function FloatPanel({
   const onTouchStart = (e) => {
     handleSlider(e.touches[0].clientX);
     const onMove = (ev) => handleSlider(ev.touches[0].clientX);
-    const onEnd  = ()   => { window.removeEventListener('touchmove', onMove); window.removeEventListener('touchend', onEnd); };
+    const onEnd = () => { window.removeEventListener('touchmove', onMove); window.removeEventListener('touchend', onEnd); };
     window.addEventListener('touchmove', onMove, { passive: true });
     window.addEventListener('touchend', onEnd);
   };
 
   const notches = Array.from({ length: 49 }, (_, q) => {
-    const qv  = q * 0.5;
-    const on  = value >= qv;
+    const qv = q * 0.5;
+    const on = value >= qv;
     const maj = Number.isInteger(qv) && [0, 4, 8, 12, 16, 20, 24].includes(qv);
     return { qv, on, maj, lbl: maj ? `${qv}h` : '' };
   });
@@ -82,12 +82,8 @@ export default function FloatPanel({
         </div>
 
         {/* Time display + steppers */}
-        <div className={styles.timeRow}>
+                <div className={styles.timeRow}>
           <div className={styles.segment}>
-            <div className={styles.steppers}>
-              <button className={styles.sb} onClick={() => stepH(1)}>▲</button>
-              <button className={styles.sb} onClick={() => stepH(-1)}>▼</button>
-            </div>
             <div className={styles.segVal}>
               <div className={`${styles.timeNum} ${H === 0 ? styles.zero : styles.lit}`}>{padZ(value)}</div>
               <div className={styles.timeUnit}>H</div>
@@ -97,10 +93,6 @@ export default function FloatPanel({
           <div className={`${styles.sep} ${value > 0 ? styles.sepLit : ''}`}>:</div>
 
           <div className={styles.segment}>
-            <div className={styles.steppers}>
-              <button className={styles.sb} onClick={() => stepM(1)}>▲</button>
-              <button className={styles.sb} onClick={() => stepM(-1)}>▼</button>
-            </div>
             <div className={styles.segVal}>
               <div className={`${styles.timeNum} ${H === 0 && M === 0 ? styles.zero : styles.lit}`}>{fmtM(value)}</div>
               <div className={styles.timeUnit}>MIN</div>
@@ -121,7 +113,7 @@ export default function FloatPanel({
           aria-valuemin={0}
           aria-valuemax={24}
         >
-          <div className={styles.fill}  style={{ width: `${pct}%` }} />
+          <div className={styles.fill} style={{ width: `${pct}%` }} />
           <div className={styles.thumb} style={{ left: `${pct}%` }} />
         </div>
         <div className={styles.notches}>
@@ -155,8 +147,8 @@ export default function FloatPanel({
           ))}
         </div>
 
-         {/* Free input */}
-       <div className={styles.freeRow}>
+        {/* Free input */}
+        {/* <div className={styles.freeRow}>
           <span className={styles.freeLbl}>Saisie libre</span>
           <input
             className={styles.freeIn}
@@ -180,12 +172,94 @@ export default function FloatPanel({
             }}
           />
           <span className={styles.freeUnit}>min</span>
+        </div> */}
+        {/* Free input */}
+        <div className={styles.freeRow}>
+          <span className={styles.freeLbl}>Saisie libre</span>
+
+          {/* Heures field + steppers */}
+          <div className={styles.freeField}>
+            <div className={styles.freeStepper}>
+              <button
+                type="button"
+                className={styles.freeStepBtn}
+                aria-label="Augmenter heures"
+                onClick={() => {
+                  const nextH = Math.min(23, H + 1);
+                  onChange(clamp(nextH + (value % 1)));
+                }}
+              >▲</button>
+              <button
+                type="button"
+                className={styles.freeStepBtn}
+                aria-label="Diminuer heures"
+                onClick={() => {
+                  const nextH = Math.max(0, H - 1);
+                  onChange(clamp(nextH + (value % 1)));
+                }}
+              >▼</button>
+            </div>
+
+            <input
+              className={styles.freeIn}
+              type="number" min={0} max={23}
+              placeholder="H"
+              value={H || ''}
+              onChange={(e) => {
+                const n = Math.max(0, Math.min(23, parseInt(e.target.value) || 0));
+                onChange(clamp(n + (value % 1)));
+              }}
+            />
+          </div>
+
+          <span className={styles.freeSep}>h</span>
+
+          {/* Minutes field + steppers */}
+          <div className={styles.freeField}>
+            <div className={styles.freeStepper}>
+              <button
+                type="button"
+                className={styles.freeStepBtn}
+                aria-label="Augmenter minutes"
+                onClick={() => {
+                  // increment minutes, carry to hours if >59
+                  let nextTotal = Math.round(value * 60) + 1;
+                  nextTotal = Math.min(24 * 60, Math.max(0, nextTotal));
+                  onChange(clamp(nextTotal / 60));
+                }}
+              >▲</button>
+              <button
+                type="button"
+                className={styles.freeStepBtn}
+                aria-label="Diminuer minutes"
+                onClick={() => {
+                  let nextTotal = Math.round(value * 60) - 1;
+                  nextTotal = Math.min(24 * 60, Math.max(0, nextTotal));
+                  onChange(clamp(nextTotal / 60));
+                }}
+              >▼</button>
+            </div>
+
+            <input
+              className={styles.freeIn}
+              type="number" min={0} max={59}
+              placeholder="MM"
+              value={M || ''}
+              onChange={(e) => {
+                const n = Math.max(0, Math.min(59, parseInt(e.target.value) || 0));
+                onChange(clamp(Math.floor(value) + n / 60));
+              }}
+            />
+          </div>
+
+          <span className={styles.freeUnit}>min</span>
         </div>
+
 
         {/* Actions */}
         <div className={styles.actions}>
           <button className={styles.btnDanger} onClick={onDiscard}>✕ Annuler</button>
-          <button className={styles.btnGhost}  onClick={onReset}>↺ Réinit.</button>
+          <button className={styles.btnGhost} onClick={onReset}>↺ Réinit.</button>
         </div>
       </div>
     </>
