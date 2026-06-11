@@ -87,6 +87,8 @@ export default function CalcPage({ times, customs, setDeviceTime, setCustomTime,
               />
               {isOpen && (
                 <FloatPanel
+                  center
+                  // withOverlay
                   app={app}
                   value={times[i] || 0}
                   onChange={(v) => setDeviceTime(i, v)}
