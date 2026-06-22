@@ -19,6 +19,7 @@ export default function InversePage({ applySuggestions }) {
 
   const handleApply = () => {
     applySuggestions(suggestions);
+    
   };
 
   return (

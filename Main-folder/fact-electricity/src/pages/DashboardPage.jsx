@@ -108,7 +108,7 @@ export default function DashboardPage({ monthlyData, addMonthEntry, removeMonthE
       {/* Stats strip */}
       <div className={styles.statsGrid}>
         <div className={styles.statCard}>
-          <div className={styles.statLbl}>Mois enregistrés</div>
+          <div className={styles.statLbl}>Calculs enregistrés</div>
           <div className={styles.statNum} style={{ color: 'var(--y)' }}>{monthlyData.length}</div>
         </div>
         <div className={styles.statCard}>

@@ -35,32 +35,34 @@ export default function App() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Navbar page={tab} onTabChange={setTab} onHome={goHome} />
 
-      {tab === 'calc' && (
-        <CalcPage
-          times={times}
-          customs={customs}
-          setDeviceTime={setDeviceTime}
-          setCustomTime={setCustomTime}
-          addCustomDevice={addCustomDevice}
-          resetAll={resetAll}
-          monthlyData={monthlyData}
-          autoSaveCalc={autoSaveCalc}
-        />
-      )}
+      <div style={{ flex: 1 }}>
+        <div style={{ display: tab === 'calc' ? 'block' : 'none' }}>
+          <CalcPage
+            times={times}
+            customs={customs}
+            setDeviceTime={setDeviceTime}
+            setCustomTime={setCustomTime}
+            addCustomDevice={addCustomDevice}
+            resetAll={resetAll}
+            monthlyData={monthlyData}
+            autoSaveCalc={autoSaveCalc}
+          />
+        </div>
 
-      {tab === 'inverse' && (
-        <InversePage applySuggestions={handleApplySuggestions} />
-      )}
+        <div style={{ display: tab === 'inverse' ? 'block' : 'none' }}>
+          <InversePage applySuggestions={handleApplySuggestions} />
+        </div>
 
-      {tab === 'dash' && (
-        <DashboardPage
-          monthlyData={monthlyData}
-          addMonthEntry={addMonthEntry}
-          removeMonthEntry={removeMonthEntry}
-          times={times}
-          customs={customs}
-        />
-      )}
+        <div style={{ display: tab === 'dash' ? 'block' : 'none' }}>
+          <DashboardPage
+            monthlyData={monthlyData}
+            addMonthEntry={addMonthEntry}
+            removeMonthEntry={removeMonthEntry}
+            times={times}
+            customs={customs}
+          />
+        </div>
+      </div>
     </div>
   );
 }

@@ -30,7 +30,8 @@ export function useAppState() {
   }, []);
 
   const applySuggestions = useCallback((suggestions) => {
-    const newTimes = APPS.map((_, i) => suggestions[i]?.suggestedH ?? 0);
+    const clamp = (v) => Math.max(0, Math.min(24, parseFloat((v || 0).toFixed(6))));
+    const newTimes = APPS.map((_, i) => clamp(suggestions[i]?.suggestedH ?? 0));
     setTimes(newTimes);
   }, []);
 
