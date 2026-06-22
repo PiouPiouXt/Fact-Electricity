@@ -134,49 +134,52 @@ export default function CalcPage({ times, customs, setDeviceTime, setCustomTime,
         </div>
       </div>
 
-      {/* Add device form */}
+      {/* Add device form - Modal overlay */}
       {showAddForm && (
-        <div className={styles.addForm}>
-          <div className={styles.addFormHeader}>
-            <span>⚙️</span>
-            <span className={styles.addFormTitle}>Nouvel appareil</span>
-            <button className={styles.addFormClose} onClick={() => setShowAddForm(false)}>✕</button>
+        <>
+          <div className={styles.addFormOverlay} onClick={() => setShowAddForm(false)} />
+          <div className={styles.addFormModal}>
+            <div className={styles.addFormHeader}>
+              <span>⚙️</span>
+              <span className={styles.addFormTitle}>Nouvel appareil</span>
+              <button className={styles.addFormClose} onClick={() => setShowAddForm(false)}>✕</button>
+            </div>
+            <div className={styles.addFormRow}>
+              <div className={styles.addFormField}>
+                <label className={styles.addFormLabel}>Nom</label>
+                <input
+                  className={styles.addFormIn}
+                  type="text"
+                  placeholder="Ex: Chauffe-eau"
+                  value={newName}
+                  onChange={(e) => setNewName(e.target.value)}
+                />
+              </div>
+              <div className={styles.addFormField} style={{ maxWidth: 100 }}>
+                <label className={styles.addFormLabel}>Watts</label>
+                <input
+                  className={styles.addFormIn}
+                  type="number" min={1}
+                  placeholder="1200"
+                  value={newWatts}
+                  onChange={(e) => setNewWatts(e.target.value)}
+                />
+              </div>
+              <div className={styles.addFormField} style={{ maxWidth: 80 }}>
+                <label className={styles.addFormLabel}>Icône</label>
+                <input
+                  className={styles.addFormIn}
+                  type="text"
+                  placeholder="🔌"
+                  maxLength={2}
+                  value={newIcon}
+                  onChange={(e) => setNewIcon(e.target.value)}
+                />
+              </div>
+            </div>
+            <button className={styles.addFormBtn} onClick={handleAddDevice}>+ Ajouter</button>
           </div>
-          <div className={styles.addFormRow}>
-            <div className={styles.addFormField}>
-              <label className={styles.addFormLabel}>Nom</label>
-              <input
-                className={styles.addFormIn}
-                type="text"
-                placeholder="Ex: Chauffe-eau"
-                value={newName}
-                onChange={(e) => setNewName(e.target.value)}
-              />
-            </div>
-            <div className={styles.addFormField} style={{ maxWidth: 100 }}>
-              <label className={styles.addFormLabel}>Watts</label>
-              <input
-                className={styles.addFormIn}
-                type="number" min={1}
-                placeholder="1200"
-                value={newWatts}
-                onChange={(e) => setNewWatts(e.target.value)}
-              />
-            </div>
-            <div className={styles.addFormField} style={{ maxWidth: 80 }}>
-              <label className={styles.addFormLabel}>Icône</label>
-              <input
-                className={styles.addFormIn}
-                type="text"
-                placeholder="🔌"
-                maxLength={2}
-                value={newIcon}
-                onChange={(e) => setNewIcon(e.target.value)}
-              />
-            </div>
-          </div>
-          <button className={styles.addFormBtn} onClick={handleAddDevice}>+ Ajouter</button>
-        </div>
+        </>
       )}
 
       {/* Calc bar */}

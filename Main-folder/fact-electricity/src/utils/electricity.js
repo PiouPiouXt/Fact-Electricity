@@ -63,7 +63,7 @@ export function calcBill(kwh) {
 
 /* ── Inverse budget allocation ──
    Priority-weighted: high-priority devices get more hours first.
-   Each device is capped at its typical daily hours.
+   Ensures final bill matches the input budget by iterative redistribution.
 */
 export function calcInverse(budgetAr) {
   if (!budgetAr || budgetAr <= 0) return [];
@@ -78,21 +78,44 @@ export function calcInverse(budgetAr) {
     targetKwh = T2_MAX + (budgetAr - T1_MAX * T1_RATE - (T2_MAX - T1_MAX) * T2_RATE) / T3_RATE;
   }
 
-  // Total available monthly kWh = targetKwh
-  // Distribute by priority using weighted allocation
+  // First pass: allocate by priority proportionally, capped at typical
   const totalPriority = APPS.reduce((s, a) => s + a.priority, 0);
-
-  return APPS.map((app) => {
+  let allocation = APPS.map((app) => {
     const typicalH = DEVICE_TYPICAL_HOURS[app.id] ?? 2;
-    // Max kWh this device can consume at typical hours
     const maxKwh = (app.watts * typicalH * 30) / 1000;
-    // Priority share of total kWh budget
     const shareKwh = (app.priority / totalPriority) * targetKwh;
-    // Use the min so we don't exceed typical usage
     const allocKwh = Math.min(shareKwh, maxKwh);
-    const suggestedH = Math.min(typicalH, (allocKwh * 1000) / (app.watts * 30));
-    return { ...app, suggestedH };
+    return { app, allocKwh, maxKwh, typicalH };
   });
+
+  // Second pass: redistribute unused capacity to higher-priority devices
+  let totalAllocKwh = allocation.reduce((s, a) => s + a.allocKwh, 0);
+  let remainingKwh = targetKwh - totalAllocKwh;
+  
+  // Sort by priority (descending) for redistribution
+  const sorted = allocation
+    .map((a, i) => ({ ...a, originalIndex: i, priority: APPS[i].priority }))
+    .sort((a, b) => b.priority - a.priority);
+
+  // Give remaining kWh to devices that haven't reached their typical max
+  for (let i = 0; i < sorted.length && remainingKwh > 0; i++) {
+    const current = sorted[i];
+    const availableSpace = current.maxKwh - current.allocKwh;
+    if (availableSpace > 0) {
+      const toAdd = Math.min(availableSpace, remainingKwh);
+      current.allocKwh += toAdd;
+      remainingKwh -= toAdd;
+    }
+  }
+
+  // Convert allocKwh back to hours and restore original order
+  const result = new Array(APPS.length);
+  sorted.forEach((item) => {
+    const suggestedH = (item.allocKwh * 1000) / (item.app.watts * 30);
+    result[item.originalIndex] = { ...item.app, suggestedH };
+  });
+
+  return result;
 }
 
 /* ── Formatting helpers ── */
