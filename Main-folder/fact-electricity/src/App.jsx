@@ -45,7 +45,7 @@ export default function App() {
             addCustomDevice={addCustomDevice}
             resetAll={resetAll}
             monthlyData={monthlyData}
-            autoSaveCalc={autoSaveCalc}
+            addMonthEntry={addMonthEntry}
           />
         </div>
 

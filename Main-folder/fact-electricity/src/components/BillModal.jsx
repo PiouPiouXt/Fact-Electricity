@@ -3,13 +3,19 @@ import { APPS, calcBill, fmtTime, numfmt, T1_MAX, T1_RATE, T2_MAX, T2_RATE, T3_R
 import { exportPDF } from '../utils/exportPDF.js';
 import styles from './BillModal.module.css';
 
-export default function BillModal({ times, customs, monthlyData, onClose }) {
+export default function BillModal({ times, customs, monthlyData, onClose, addMonthEntry }) {
   // Close on Escape
   useEffect(() => {
     const handler = (e) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, [onClose]);
+
+  const handleSaveToHistory = () => {
+    const now = new Date();
+    addMonthEntry(now.getMonth(), now.getFullYear(), Math.round(bill.cost), parseFloat(totalKwh.toFixed(2)));
+    onClose();
+  };
 
   const rows = [];
   let totalKwh = 0;
@@ -98,11 +104,17 @@ export default function BillModal({ times, customs, monthlyData, onClose }) {
         <div className={styles.actions}>
           <button
             className={styles.btnPrimary}
+            onClick={handleSaveToHistory}
+          >
+            💾 Enregistrer au suivi
+          </button>
+          <button
+            className={styles.btnOutline}
             onClick={() => exportPDF(times, customs, monthlyData)}
           >
             ⬇ Export PDF
           </button>
-          <button className={styles.btnOutline} onClick={onClose}>Fermer</button>
+          <button className={styles.btnOutline} onClick={onClose}>📊 Fermer (démo)</button>
         </div>
       </div>
     </div>

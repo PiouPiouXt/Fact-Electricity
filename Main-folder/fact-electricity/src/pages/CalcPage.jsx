@@ -6,7 +6,7 @@ import FloatPanel    from '../components/FloatPanel.jsx';
 import BillModal     from '../components/BillModal.jsx';
 import styles from './CalcPage.module.css';
 
-export default function CalcPage({ times, customs, setDeviceTime, setCustomTime, addCustomDevice, resetAll, monthlyData, autoSaveCalc }) {
+export default function CalcPage({ times, customs, setDeviceTime, setCustomTime, addCustomDevice, resetAll, monthlyData, addMonthEntry }) {
   const [activeKey,   setActiveKey]   = useState(null);
   const [origVal,     setOrigVal]     = useState(0);
   const [showBill,    setShowBill]    = useState(false);
@@ -41,7 +41,6 @@ export default function CalcPage({ times, customs, setDeviceTime, setCustomTime,
   };
 
   const handleOpenBill = () => {
-    if (kwh > 0) autoSaveCalc(kwh, bill.cost);
     setShowBill(true);
   };
 
@@ -200,6 +199,7 @@ export default function CalcPage({ times, customs, setDeviceTime, setCustomTime,
           times={times}
           customs={customs}
           monthlyData={monthlyData}
+          addMonthEntry={addMonthEntry}
           onClose={() => setShowBill(false)}
         />
       )}
