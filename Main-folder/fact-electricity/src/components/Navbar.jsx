@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Navbar.module.css';
+import HamburgerMenu from './HamburgerMenu.jsx'
 
 const TABS = [
   { id: 'calc',    label: 'Simulateur'    },
@@ -30,9 +31,7 @@ export default function Navbar({ page, onTabChange, onHome }) {
         ))}
       </div>
 
-      <button className={styles.homeBtn} onClick={onHome}>
-        ← Accueil
-      </button>
+      <HamburgerMenu />
     </nav>
   );
 }
