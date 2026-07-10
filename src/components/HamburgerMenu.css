@@ -154,3 +154,70 @@
   background-color: rgba(248, 113, 113, 0.05);
   border-color: rgba(248, 113, 113, 0.2);
 }
+
+/* --- Styles pour la Fenêtre Modal Login --- */
+
+/* L'arrière-plan de la modal qui couvre tout l'écran */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Fond légèrement plus sombre pour faire ressortir le glow jaune */
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;      /* Centre verticalement */
+  justify-content: center;   /* Centre horizontalement */
+  z-index: 100;
+  padding: 20px;            /* Évite que la carte colle aux bords sur mobile */
+  animation: fadeIn 0.25s ease-out;
+}
+
+/* Le conteneur qui enveloppe la Login Card */
+.modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 440px; /* Aligné sur la taille de la carte Login */
+  animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* Animation de rebond fluide */
+}
+
+/* Bouton pour fermer la modal (Le X) */
+.modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(25, 30, 41, 0.5);
+  border: 1px solid rgba(255, 199, 0, 0.2);
+  color: #9CA3AF;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20; /* Par-dessus le header du login */
+  transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  color: #FFC700;
+  border-color: #FFC700;
+  box-shadow: 0 0 10px rgba(255, 199, 0, 0.4);
+  transform: scale(1.05);
+}
+
+/* --- Animations de transition --- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
