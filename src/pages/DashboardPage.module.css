@@ -1,0 +1,219 @@
+.page { padding: 20px; max-width: 860px; margin: 0 auto; }
+
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pageTitle {
+  font-family: var(--mono);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.btnExport {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 9px 18px;
+  background: var(--y);
+  color: #000;
+  font-weight: 700;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+.btnExport:hover { box-shadow: 0 0 16px rgba(245,197,24,0.4); }
+
+/* Stats */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.statCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.statLbl {
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+.statNum {
+  font-family: var(--mono);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+/* Chart card */
+.chartCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 14px;
+}
+
+.chartTitle {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  color: var(--y);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.62rem;
+  color: var(--muted);
+  font-weight: 400;
+  margin-left: 8px;
+}
+.legendDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.chartWrap {
+  position: relative;
+  height: 240px;
+}
+
+.emptyChart {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+/* Add form */
+.addRow {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.addField {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.addLbl {
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.addIn {
+  background: #060610;
+  border: 1px solid #252535;
+  color: var(--y);
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  padding: 8px 10px;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 120px;
+  -webkit-appearance: none;
+}
+.addIn:focus { border-color: var(--y); }
+.addIn::placeholder { color: #252535; }
+
+.btnAdd {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  padding: 9px 16px;
+  background: var(--y);
+  color: #000;
+  font-weight: 700;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: box-shadow 0.2s;
+}
+.btnAdd:hover { box-shadow: 0 0 14px rgba(245,197,24,0.4); }
+
+/* History */
+.histList { display: flex; flex-direction: column; gap: 6px; }
+
+.histRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #060610;
+  border: 1px solid #1a1a2a;
+  border-radius: 7px;
+  transition: border-color 0.15s;
+}
+.histRow:hover { border-color: #252535; }
+
+.histLeft  { display: flex; align-items: center; gap: 8px; }
+.histRight { display: flex; align-items: center; gap: 14px; }
+
+.histTag {
+  font-size: 0.58rem;
+  font-family: var(--mono);
+  padding: 3px 9px;
+  background: rgba(245,197,24,0.07);
+  border: 1px solid rgba(245,197,24,0.2);
+  border-radius: 3px;
+  color: var(--y);
+  letter-spacing: 0.06em;
+}
+
+.histAuto {
+  font-size: 0.5rem;
+  font-family: var(--mono);
+  color: var(--muted2);
+  letter-spacing: 0.1em;
+}
+
+.histKwh  { font-family: var(--mono); font-size: 0.72rem; color: #3b82f6; }
+.histCost { font-family: var(--mono); font-size: 0.8rem;  color: var(--y); font-weight: 700; }
+
+.histDel {
+  background: none;
+  border: none;
+  color: var(--muted2);
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 3px;
+  transition: color 0.15s;
+}
+.histDel:hover { color: #e05555; }
+
+@media (max-width: 600px) {
+  .addRow { flex-direction: column; }
+  .addIn  { width: 100%; }
+}

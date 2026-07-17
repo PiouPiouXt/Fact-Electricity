@@ -1,0 +1,156 @@
+/* --- Variables de Thème (Dark Yellow Glow) --- */
+:root {
+  --bg-dark: #0B0F17;
+  --bg-card: rgba(25, 30, 41, 0.65);
+  --yellow-glow: #FFC700;
+  --yellow-glow-dim: rgba(255, 199, 0, 0.2);
+  --yellow-glow-laser: rgba(255, 199, 0, 0.6);
+  --text-light: #F5F5F5;
+  --text-muted: #9CA3AF;
+}
+
+/* --- Conteneur Principal --- */
+.hamburger-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* --- Bouton Trigger (L'icône Hamburger) --- */
+.hamburger-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 12px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--yellow-glow-dim);
+  color: var(--yellow-glow);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  z-index: 50;
+  position: relative;
+  outline: none;
+}
+
+/* Effet Glow au survol du bouton */
+.hamburger-trigger:hover {
+  color: #000000;
+  background-color: var(--yellow-glow);
+  box-shadow: 0 0 15px var(--yellow-glow-laser);
+}
+
+/* --- Overlay de fond --- */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 40;
+}
+
+/* --- Panneau Déroulant (Dropdown) --- */
+.menu-dropdown {
+  position: absolute;
+  right: 0;
+  margin-top: 12px;
+  width: 256px;
+  border-radius: 16px;
+  background-color: rgba(11, 15, 23, 0.95);
+  border: 1px solid rgba(255, 199, 0, 0.3);
+  padding: 16px;
+  z-index: 50;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 30px rgba(255, 199, 0, 0.15);
+  
+  /* Alignement de l'animation */
+  transform-origin: top right;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s ease-out;
+  transform: scale(0.95);
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* États d'ouverture via classe dynamique */
+.menu-dropdown.is-open {
+  transform: scale(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Décoration interne : Le halo de fond radial */
+.menu-halo-effect {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 128px;
+  height: 128px;
+  background: radial-gradient(circle, rgba(255, 199, 0, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* --- Liste de Navigation --- */
+.menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  z-index: 10;
+}
+
+/* --- Liens / Boutons du Menu --- */
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  font-family: sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* État survol standard (Log in & Paramètres) */
+.menu-item:hover {
+  color: var(--yellow-glow);
+  background-color: rgba(255, 199, 0, 0.05);
+  border-color: rgba(255, 199, 0, 0.2);
+}
+
+/* Badge Dev */
+.badge-dev {
+  margin-left: auto;
+  font-size: 10px;
+  background-color: #191E29;
+  color: #6B7280;
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid #1F2937;
+}
+
+/* Séparateur */
+.menu-separator {
+  border: 0;
+  height: 1px;
+  background-color: rgba(31, 41, 55, 0.6);
+  margin: 4px 0;
+}
+
+/* État survol destructif (Log Out) */
+.menu-item-logout {
+  color: #9CA3AF;
+}
+
+.menu-item-logout:hover {
+  color: #F87171;
+  background-color: rgba(248, 113, 113, 0.05);
+  border-color: rgba(248, 113, 113, 0.2);
+}
