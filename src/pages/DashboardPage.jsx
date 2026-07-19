@@ -7,7 +7,7 @@ import styles from './DashboardPage.module.css';
 
 const NOW = new Date();
 
-export default function DashboardPage({ monthlyData, addMonthEntry, removeMonthEntry, times, customs }) {
+export default function DashboardPage({ active, monthlyData, addMonthEntry, removeMonthEntry, times, customs }) {
   const chartRef = useRef(null);
   const chartInst = useRef(null);
 
@@ -82,7 +82,7 @@ export default function DashboardPage({ monthlyData, addMonthEntry, removeMonthE
   // Validate data to avoid creating charts with invalid values
   const hasInvalid = monthlyData.some(d => !isFinite(d.cost) || !isFinite(d.kwh));
   // only attach chart when valid and not empty
-  useChart(chartRef, chartConfig, monthlyData.length > 0 && !hasInvalid ? [monthlyData] : []);
+  useChart(chartRef, chartConfig, active && monthlyData.length > 0 && !hasInvalid ? [monthlyData] : []);
 
   const handleAdd = () => {
     const c = parseFloat(cost.replace(/\s/g, '').replace(',', '.'));
@@ -134,8 +134,7 @@ export default function DashboardPage({ monthlyData, addMonthEntry, removeMonthE
             <span className={styles.legendDot} style={{ background: '#3b82f6', marginLeft: 10 }} />kWh
           </span>
         </div>
-        {monthlyData.length > 0
-          // ? <div className={styles.chartWrap}><canvas ref={chartRef} role="img" aria-label="Graphique de consommation mensuelle" /></div>
+        {active && monthlyData.length > 0
           ? <div className={styles.chartWrap} style={{ minHeight: 220 }}><canvas ref={chartRef} role="img" aria-label="Graphique de consommation mensuelle" /></div>
           : <div className={styles.emptyChart}>Aucune donnée. Ajoutez votre première facture ci-dessous.</div>
         }
