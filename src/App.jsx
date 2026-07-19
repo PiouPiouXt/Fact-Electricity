@@ -55,6 +55,7 @@ export default function App() {
 
         <div style={{ display: tab === 'dash' ? 'block' : 'none' }}>
           <DashboardPage
+            active={tab === 'dash'}
             monthlyData={monthlyData}
             addMonthEntry={addMonthEntry}
             removeMonthEntry={removeMonthEntry}
