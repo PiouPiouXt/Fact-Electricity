@@ -6,6 +6,8 @@ Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, L
 
 export function useChart(canvasRef, config, deps = []) {
   const instRef = useRef(null);
+  const configRef = useRef(config);
+  configRef.current = config; // Always keep latest config for effect closure
 
   useEffect(() => {
     const canvas = canvasRef?.current;
@@ -29,7 +31,7 @@ export function useChart(canvasRef, config, deps = []) {
     } catch (e) { /* ignore */ }
 
     try {
-      instRef.current = new Chart(canvas, config);
+      instRef.current = new Chart(canvas, configRef.current);
     } catch (err) {
       console.error('useChart: failed to create Chart.js instance', err);
     }
