@@ -80,9 +80,11 @@ export default function DashboardPage({ active, monthlyData, addMonthEntry, remo
   };
 
   // Validate data to avoid creating charts with invalid values
-  const hasInvalid = monthlyData.some(d => !isFinite(d.cost) || !isFinite(d.kwh));
+  const hasInvalid = monthlyData.some((d) => !isFinite(d.cost) || !isFinite(d.kwh));
+  const showChart = active && monthlyData.length > 0 && !hasInvalid;
+
   // only attach chart when valid and not empty
-  useChart(chartRef, chartConfig, active && monthlyData.length > 0 && !hasInvalid ? [monthlyData] : []);
+  useChart(chartRef, chartConfig, [showChart, monthlyData]);
 
   const handleAdd = () => {
     const c = parseFloat(cost.replace(/\s/g, '').replace(',', '.'));
