@@ -96,8 +96,8 @@ $$	ext{Cout Total (Ar)} = \sum (	ext{kWh dans la tranche } i 	imes 	ext{Tarif tr
 
 ### Frontend
 - **Framework** : React.js (Vite / Next.js)
-- **Styling** : Tailwind CSS + CSS Modules / Custom Glow Utilities
-- **Icons** : Lucide-React / FontAwesome
+- **Styling** : CSS Modules / Custom Glow Utilities
+- **Icons** : Lucide-React
 - **Visualisation de données** : Recharts / Chart.js
 
 ### Backend
