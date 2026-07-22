@@ -1,0 +1,110 @@
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 24px;
+  height: 56px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(5, 5, 8, 0.95);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-right: auto;
+  cursor: pointer;
+}
+
+.bolt {
+  font-size: 1.1rem;
+  filter: drop-shadow(0 0 6px rgba(245,197,24,0.6));
+}
+
+.logoWord {
+  font-family: var(--mono);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #fff;
+}
+
+.logoAccent {
+  font-family: var(--mono);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--y);
+}
+
+/* Tab group */
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 6px 16px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-radius: 6px;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.tab:hover {
+  color: var(--text);
+  background: var(--card2);
+}
+
+.tab.active {
+  background: var(--card2);
+  color: var(--y);
+  box-shadow: inset 0 0 0 1px rgba(245, 197, 24, 0.2);
+}
+
+/* Home back button */
+.homeBtn {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 7px 14px;
+  border-radius: 6px;
+  margin-left: 8px;
+  transition: all 0.2s ease;
+}
+
+.homeBtn:hover {
+  border-color: var(--y);
+  color: var(--y);
+}
+
+@media (max-width: 600px) {
+  .nav { padding: 0 12px; }
+  .tab { padding: 6px 10px; font-size: 0.64rem; }
+  .homeBtn { display: none; }
+  .logoAccent { display: none; }
+}
