@@ -27,10 +27,10 @@ export default function Login({ onLoginSuccess }) {
       await new Promise((resolve, reject) => {
         setTimeout(() => {
           // Simulation d'une vérification basique pour le test
-          if (email === 'piou@livreo.mg' && password === 'password123') {
+          if (email === 'fact@electricity.mg' && password === 'password123') {
             resolve();
           } else {
-            reject(new Error("Identifiants incorrects. Testez avec piou@livreo.mg / password123"));
+            reject(new Error("Identifiants incorrects. Testez avec fact@electricity.mg / password123"));
           }
         }, 1500); // Faux temps de latence réseau
       });

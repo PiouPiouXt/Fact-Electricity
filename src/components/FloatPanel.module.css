@@ -343,9 +343,9 @@
   align-items: center;
   gap: 8px;
   padding: 9px 12px;
-  background: #060610;
-  border: 1px solid #1a1a2a;
-  border-radius: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   margin-bottom: 12px;
 }
 
@@ -359,23 +359,22 @@
 /* Wider numeric inputs for easier typing */
 .panelContent .freeIn {
   width: 72px;
-  /* increased width */
-  background: #000;
-  border: 1px solid var(--panel-border);
+  background: var(--bg);
+  border: 1px solid var(--border);
   color: var(--accent);
   font-family: var(--mono);
   font-size: 0.9rem;
   font-weight: 700;
   padding: 6px;
   text-align: center;
-  border-radius: 6px;
+  border-radius: var(--radius);
   outline: none;
-  transition: border-color 150ms, box-shadow 150ms;
+  transition: all 150ms ease;
 }
 
 .panelContent .freeIn:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.06);
+  box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.15);
 }
 
 .panelContent .freeIn::-webkit-outer-spin-button,
@@ -387,7 +386,7 @@
 .freeSep {
   font-family: var(--mono);
   font-weight: 700;
-  color: var(--accent-dim);
+  color: var(--y);
 }
 
 .freeUnit {
@@ -460,7 +459,7 @@
 .freeField {
   display: flex;
   align-items: center;
-  gap: 6px; /* space between stepper and input */
+  gap: 6px;
 }
 
 .freeStepper {
@@ -471,23 +470,35 @@
 }
 
 .freeStepBtn {
-  width: 28px;
-  height: 20px;
-  background: #0f0f18;
-  border: 1px solid var(--panel-border);
+  width: 32px;
+  height: 22px;
+  background: var(--card);
+  border: 1px solid var(--border);
   color: var(--accent);
   font-size: 0.7rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: var(--radius);
   cursor: pointer;
   padding: 0;
   line-height: 1;
+  transition: all 150ms ease;
 }
-.freeStepBtn:hover,
-.freeStepBtn:focus {
-  background: #1a1600;
-  border-color: var(--accent-dim);
-  outline: none;
+
+.freeStepBtn:hover {
+  background: var(--card2);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 12px rgba(245, 197, 24, 0.25);
+  transform: translateY(-1px);
+}
+
+.freeStepBtn:active {
+  transform: translateY(0);
+}
+
+.freeStepBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }

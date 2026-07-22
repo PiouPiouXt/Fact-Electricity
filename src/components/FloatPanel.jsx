@@ -1,5 +1,6 @@
 import React, { useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import { ChevronUp, ChevronDown } from 'lucide-react';
 import { CHIPS_M, CHIPS_H, fmtTime } from '../utils/electricity.js';
 import styles from './FloatPanel.module.css';
 
@@ -147,33 +148,7 @@ export default function FloatPanel({
           ))}
         </div>
 
-        {/* Free input */}
-        {/* <div className={styles.freeRow}>
-          <span className={styles.freeLbl}>Saisie libre</span>
-          <input
-            className={styles.freeIn}
-            type="number" min={0} max={23}
-            placeholder="H"
-            value={H || ''}
-            onChange={(e) => {
-              const n = Math.max(0, Math.min(23, parseInt(e.target.value) || 0));
-              onChange(clamp(n + (value % 1)));
-            }}
-          />
-          <span className={styles.freeSep}>h</span>
-          <input
-            className={styles.freeIn}
-            type="number" min={0} max={59}
-            placeholder="MM"
-            value={M || ''}
-            onChange={(e) => {
-              const n = Math.max(0, Math.min(59, parseInt(e.target.value) || 0));
-              onChange(clamp(Math.floor(value) + n / 60));
-            }}
-          />
-          <span className={styles.freeUnit}>min</span>
-        </div> */}
-        {/* Free input */}
+        
         <div className={styles.freeRow}>
           <span className={styles.freeLbl}>Saisie libre</span>
 
@@ -188,7 +163,7 @@ export default function FloatPanel({
                   const nextH = Math.min(23, H + 1);
                   onChange(clamp(nextH + (value % 1)));
                 }}
-              >▲</button>
+              ><ChevronUp size={14} /></button>
               <button
                 type="button"
                 className={styles.freeStepBtn}
@@ -197,19 +172,9 @@ export default function FloatPanel({
                   const nextH = Math.max(0, H - 1);
                   onChange(clamp(nextH + (value % 1)));
                 }}
-              >▼</button>
+              ><ChevronDown size={14} /></button>
             </div>
 
-            <input
-              className={styles.freeIn}
-              type="number" min={0} max={23}
-              placeholder="H"
-              value={H || ''}
-              onChange={(e) => {
-                const n = Math.max(0, Math.min(23, parseInt(e.target.value) || 0));
-                onChange(clamp(n + (value % 1)));
-              }}
-            />
           </div>
 
           <span className={styles.freeSep}>h</span>
@@ -222,12 +187,11 @@ export default function FloatPanel({
                 className={styles.freeStepBtn}
                 aria-label="Augmenter minutes"
                 onClick={() => {
-                  // increment minutes, carry to hours if >59
                   let nextTotal = Math.round(value * 60) + 1;
                   nextTotal = Math.min(24 * 60, Math.max(0, nextTotal));
                   onChange(clamp(nextTotal / 60));
                 }}
-              >▲</button>
+              ><ChevronUp size={14} /></button>
               <button
                 type="button"
                 className={styles.freeStepBtn}
@@ -237,22 +201,12 @@ export default function FloatPanel({
                   nextTotal = Math.min(24 * 60, Math.max(0, nextTotal));
                   onChange(clamp(nextTotal / 60));
                 }}
-              >▼</button>
+              ><ChevronDown size={14} /></button>
             </div>
 
-            <input
-              className={styles.freeIn}
-              type="number" min={0} max={59}
-              placeholder="MM"
-              value={M || ''}
-              onChange={(e) => {
-                const n = Math.max(0, Math.min(59, parseInt(e.target.value) || 0));
-                onChange(clamp(Math.floor(value) + n / 60));
-              }}
-            />
           </div>
 
-          <span className={styles.freeUnit}>min</span>
+          <span className={styles.freeSep}>min</span>
         </div>
 
 
