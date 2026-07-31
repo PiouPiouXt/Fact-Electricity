@@ -1,0 +1,15 @@
+# Dépendances Node
+client/node_modules/
+server/node_modules/
+
+# Builds / Outputs
+client/dist/
+client/build/
+
+# Variables d'environnement (fichiers secrets)
+/.env
+client/.env.local
+server/.env
+
+# Fichiers système
+.DS_Store
