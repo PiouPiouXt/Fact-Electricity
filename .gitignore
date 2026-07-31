@@ -5,6 +5,7 @@ server/node_modules/
 # Builds / Outputs
 client/dist/
 client/build/
+server/data/
 
 # Variables d'environnement (fichiers secrets)
 /.env
