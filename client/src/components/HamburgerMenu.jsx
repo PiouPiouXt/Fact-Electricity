@@ -18,7 +18,6 @@ export default function HamburgerMenu() {
   const handleLoginSuccess = () => {
     // Ce bloc s'exécute quand l'utilisateur a entré les bons identifiants
     setShowLoginModal(false); // Ferme la modal
-    alert("Bienvenue sur Livreo !"); 
     // Tu pourras ici mettre à jour l'état global de l'utilisateur (ex: avec un Context ou Zustand)
   };
 
@@ -75,7 +74,7 @@ export default function HamburgerMenu() {
             </button>
             
             {/* Injection du composant Login */}
-            <Login onLoginSuccess={handleLoginSuccess} />
+            <Login onLoginSuccess={handleLoginSuccess} isModal />
           </div>
         </div>
       )}

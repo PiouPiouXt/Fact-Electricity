@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Mail, Lock, Eye, EyeOff, Loader2, ArrowRight } from 'lucide-react';
 import './Login.css';
 
-export default function Login({ onLoginSuccess }) {
+export default function Login({ onLoginSuccess, isModal = false }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -46,7 +46,7 @@ export default function Login({ onLoginSuccess }) {
   };
 
   return (
-    <div className="login-container">
+    <div className={`login-container${isModal ? ' modal-login-container' : ''}`}>
       {/* Effet d'arrière-plan : Halo lumineux principal */}
       <div className="login-bg-glow" />
 

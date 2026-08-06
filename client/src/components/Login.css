@@ -11,6 +11,16 @@
   z-index: 1000;
 }
 
+.login-container.modal-login-container {
+  position: relative;
+  inset: auto;
+  display: block;
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  z-index: auto;
+}
+
 /* --- Grand Halo Jaune en arrière-plan --- */
 .login-bg-glow {
   position: absolute;
@@ -28,6 +38,7 @@
 
 /* --- La Carte de Connexion (Glassmorphism) --- */
 .login-card {
+  transform: translateY(300px);
   position: relative;
   width: 100%;
   max-width: 440px;
