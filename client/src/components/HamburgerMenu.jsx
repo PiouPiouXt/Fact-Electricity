@@ -6,6 +6,7 @@ import './HamburgerMenu.css';
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false); // État pour la modal
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // État de connexion
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -18,7 +19,17 @@ export default function HamburgerMenu() {
   const handleLoginSuccess = () => {
     // Ce bloc s'exécute quand l'utilisateur a entré les bons identifiants
     setShowLoginModal(false); // Ferme la modal
-    // Tu pourras ici mettre à jour l'état global de l'utilisateur (ex: avec un Context ou Zustand)
+    setIsLoggedIn(true); // Marque l'utilisateur comme connecté
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setIsOpen(false);
+    setShowLoginModal(false);
+  };
+
+  const handleCloseLogin = () => {
+    setShowLoginModal(false);
   };
 
   return (
@@ -38,11 +49,17 @@ export default function HamburgerMenu() {
 
           <nav className="menu-nav">
             {/* Option: Log In lié à notre fonction */}
-            <button onClick={handleLoginClick} className="menu-item">
-              <LogIn size={18} />
-              <span>Log In</span>
-              <span className="badge-dev">Dev</span>
-            </button>
+            {!isLoggedIn ? (
+              <button onClick={handleLoginClick} className="menu-item">
+                <LogIn size={18} />
+                <span>Log In</span>
+                <span className="badge-dev">Dev</span>
+              </button>
+            ) : (
+              <div className="menu-item menu-item-logged-in">
+                <span>Connecté</span>
+              </div>
+            )}
 
             {/* Option: Paramètres */}
             <button onClick={() => { console.log("Settings"); setIsOpen(false); }} className="menu-item">
@@ -53,7 +70,7 @@ export default function HamburgerMenu() {
             <hr className="menu-separator" />
 
             {/* Option: Log Out */}
-            <button onClick={() => { console.log("Logout"); setIsOpen(false); }} className="menu-item menu-item-logout">
+            <button onClick={handleLogout} className="menu-item menu-item-logout">
               <LogOut size={18} />
               <span>Log Out</span>
             </button>
@@ -63,18 +80,18 @@ export default function HamburgerMenu() {
 
       {/* 2. Affichage de la Modal Login si showLoginModal est vrai */}
       {showLoginModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
+        <div className="modal-overlay" onClick={handleCloseLogin}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             {/* Bouton de fermeture de la modal */}
             <button 
               className="modal-close-btn" 
-              onClick={() => setShowLoginModal(false)}
+              onClick={handleCloseLogin}
             >
               <X size={20} />
             </button>
             
             {/* Injection du composant Login */}
-            <Login onLoginSuccess={handleLoginSuccess} isModal />
+            <Login onLoginSuccess={handleLoginSuccess} onClose={handleCloseLogin} isModal />
           </div>
         </div>
       )}

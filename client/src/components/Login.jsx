@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Mail, Lock, Eye, EyeOff, Loader2, ArrowRight } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, Loader2, ArrowRight, X } from 'lucide-react';
 import './Login.css';
 
-export default function Login({ onLoginSuccess, isModal = false }) {
+export default function Login({ onLoginSuccess, onClose, isModal = false }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -35,6 +35,7 @@ export default function Login({ onLoginSuccess, isModal = false }) {
         }, 1500); // Faux temps de latence réseau
       });
 
+      alert('Connecté avec succès !');
       console.log('Connexion réussie !');
       if (onLoginSuccess) onLoginSuccess();
       
@@ -51,6 +52,11 @@ export default function Login({ onLoginSuccess, isModal = false }) {
       <div className="login-bg-glow" />
 
       <div className="login-card">
+        {onClose && (
+          <button type="button" className="login-close-btn" onClick={onClose} aria-label="Fermer">
+            <X size={18} />
+          </button>
+        )}
         {/* En-tête de la carte */}
         <div className="login-header">
           <div className="login-logo">⚡</div>
